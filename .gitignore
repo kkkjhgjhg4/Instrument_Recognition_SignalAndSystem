@@ -164,4 +164,4 @@ cython_debug/
 
 # Dataset
 IRMAS/
-Instruments Recognition.ipynb
+.DS_Store
