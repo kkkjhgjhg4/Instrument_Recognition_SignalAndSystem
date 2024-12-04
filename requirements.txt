@@ -6,3 +6,5 @@ seaborn
 tqdm
 librosa
 matplotlib
+pywavelets
+niapy
