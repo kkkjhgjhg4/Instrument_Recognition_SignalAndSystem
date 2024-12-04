@@ -127,7 +127,7 @@ test_subset = torch.utils.data.Subset(total_dataset, test_indices)
 
 
 # Save the label encoder for later
-with open("label_encoder_cnn.pkl", "wb") as file:
+with open("TITAN/label_encoder_cnn.pkl", "wb") as file:
     pickle.dump(label_encoder, file)
 
 # Model initialization

@@ -176,7 +176,7 @@ train_subset = torch.utils.data.Subset(total_dataset, train_indices)
 test_subset = torch.utils.data.Subset(total_dataset, test_indices)
 
 # Save the label encoder for later use
-with open("label_encoder_cnn.pkl", "wb") as file:
+with open("TITAN/label_encoder_cnn.pkl", "wb") as file:
     pickle.dump(label_encoder, file)
 
 # ============================================
@@ -391,7 +391,7 @@ plt.show()
 # ============================================
 
 # Optional: Save training metrics for later analysis
-with open("training_metrics.pkl", "wb") as f:
+with open("TITAN/training_metrics.pkl", "wb") as f:
     pickle.dump({
         "train_accuracies": train_accuracies,
         "epoch_losses": epoch_losses
