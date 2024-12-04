@@ -1,8 +1,8 @@
 pyqt5==5.15.11
-numpy==2.0.2
-pandas==2.2.3
-scikit-learn==1.5.2
-seaborn==0.13.2
-tqdm==4.67.0
-librosa==0.10.2.post1
-matplotlib==3.9.2
+numpy
+pandas
+scikit-learn
+seaborn
+tqdm
+librosa
+matplotlib

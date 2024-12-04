@@ -107,7 +107,7 @@ class AudioCNN(nn.Module):
         return x
 
 # Dataset path and instruments
-dataset_path = "./../IRMAS/IRMAS-TrainingData"
+dataset_path = "../IRMAS/IRMAS-TrainingData"
 instruments = 'flu pia tru org gac voi cel cla gel sax vio'.split()
 
 # Label encoder
