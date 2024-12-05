@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1db45cea-c78d-4dae-95a0-d9f0ac51572c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/CNN Model/TITAN/Deep_CNN_Han/Accuracy_final_model_patience10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CNN Model/TITAN/Deep_CNN_Han/Confusion_Mat_final_model_patience10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CNN Model/TITAN/Deep_CNN_Han/Deep_CNN_Han_Single_Predominant.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CNN Model/TITAN/Deep_CNN_Han/Loss_final_model_patience10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Instrument_Recognition_SignalAndSystem.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CNN Model/TITAN/Deep_CNN_Han/Deep_CNN_Han.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/CNN Model/TITAN/Deep_CNN_Han/Deep_CNN_Han.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CNN Model/TITAN/Deep_CNN_Han/best_model.pth" beforeDir="false" afterPath="$PROJECT_DIR$/CNN Model/TITAN/Deep_CNN_Han/best_model.pth" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CNN Model/TITAN/Deep_CNN_Han/final_model.pth" beforeDir="false" afterPath="$PROJECT_DIR$/CNN Model/TITAN/Deep_CNN_Han/final_model.pth" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CNN Model/TITAN/label_encoder_cnn.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CNN Model/TITAN/training_metrics.pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SVM Model/SVM_Model.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/SVM Model/SVM_Model.ipynb" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Jupyter Notebook" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2pjWTV96the2T66PKx1rUHQiB8t" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/kevin/Bingqi/Instrument_Recognition_SignalAndSystem/CNN Model/TITAN/Deep_CNN_Han",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/CNN Model/TITAN/Deep_CNN_Han" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/CNN Model/TITAN" />
+      <recent name="$PROJECT_DIR$/CNN Model/DeepCnn_with_DWT" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1db45cea-c78d-4dae-95a0-d9f0ac51572c" name="Changes" comment="" />
+      <created>1733279972982</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1733279972982</updated>
+      <workItem from="1733279974497" duration="681000" />
+      <workItem from="1733280670791" duration="36005000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

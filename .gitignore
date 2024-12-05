@@ -164,4 +164,5 @@ cython_debug/
 
 # Dataset
 IRMAS/
-Instruments Recognition.ipynb
+.DS_Store
+CNN Model/TITAN/Deep_CNN_Han/preprocessed_data
