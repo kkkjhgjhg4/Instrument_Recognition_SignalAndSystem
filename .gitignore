@@ -176,3 +176,7 @@ CNN Model/TITAN/Deep_CNN_Han/preprocessed_data
 Instrument Recognition Software/build
 Instrument Recognition Software/dist
 Instrument Recognition Software/Recognition_software.spec
+
+CNN Model/TITAN/Deep_CNN_Custome/preprocessed_data_additional_features
+CNN Model/TITAN/Deep_CNN_Custome/preprocessed_data_mel_spectrogram
+
