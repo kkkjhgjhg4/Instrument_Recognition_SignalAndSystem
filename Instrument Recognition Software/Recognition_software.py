@@ -2,6 +2,7 @@ import sys
 import os
 import pickle
 import numpy as np
+import pandas as pd
 import librosa
 import librosa.display
 import torch
@@ -17,7 +18,8 @@ from PyQt5.QtWidgets import (
     QMessageBox,
     QScrollArea,
     QHBoxLayout,
-    QComboBox
+    QComboBox,
+    QTextEdit  # Add this import
 )
 from PyQt5.QtCore import Qt
 from matplotlib.figure import Figure
@@ -128,37 +130,71 @@ class InstrumentRecognizerApp(QWidget):
         self.setWindowTitle("Instrument Recognizer")
         self.setGeometry(200, 200, 1200, 800)
 
-        self.layout = QVBoxLayout()
+        # Main layout
+        self.layout = QHBoxLayout()
 
+        # Left layout (Waveform and Controls)
+        left_layout = QVBoxLayout()
+
+        # Instruction Label
         self.label = QLabel("Select an audio file to predict the instrument:")
-        self.layout.addWidget(self.label)
+        left_layout.addWidget(self.label)
 
+        # Upload Button
+        self.upload_button = QPushButton("Upload Audio File")
+        self.upload_button.clicked.connect(self.upload_audio)
+        left_layout.addWidget(self.upload_button)
+
+        # Model Selection
         model_selection_layout = QHBoxLayout()
         self.model_selector = QComboBox()
         self.model_selector.addItems(["SVM", "Neural Network"])
         model_selection_layout.addWidget(QLabel("Choose Model:"))
         model_selection_layout.addWidget(self.model_selector)
-        self.layout.addLayout(model_selection_layout)
+        left_layout.addLayout(model_selection_layout)
 
-        self.upload_button = QPushButton("Upload Audio File")
-        self.upload_button.clicked.connect(self.upload_audio)
-        self.layout.addWidget(self.upload_button)
-
+        # Predict Button
         self.predict_button = QPushButton("Predict Instrument")
         self.predict_button.clicked.connect(self.predict_instrument)
         self.predict_button.setEnabled(False)
-        self.layout.addWidget(self.predict_button)
+        left_layout.addWidget(self.predict_button)
 
+        # Feature Extraction Button
+        self.feature_button = QPushButton("Feature Extraction")
+        self.feature_button.clicked.connect(self.extract_and_display_features)
+        self.feature_button.setEnabled(False)
+        left_layout.addWidget(self.feature_button)
+
+        # Result Label
         self.result_label = QLabel("")
         self.result_label.setAlignment(Qt.AlignLeft)
-        self.layout.addWidget(self.result_label)
+        left_layout.addWidget(self.result_label)
 
+        # Waveform Plot
         self.figure = Figure(figsize=(10, 4))
         self.canvas = FigureCanvas(self.figure)
-        self.layout.addWidget(self.canvas)
+        left_layout.addWidget(self.canvas)
 
+        # Add left layout to main layout
+        self.layout.addLayout(left_layout)
+
+        # Right layout (Features)
+        right_layout = QVBoxLayout()
+        right_layout.addWidget(QLabel("Extracted Features (SVM):"))
+
+        self.features_text = QTextEdit()
+        self.features_text.setReadOnly(True)
+        self.features_text.setMinimumHeight(400)
+        self.features_text.setVisible(False)  # Hide by default
+        right_layout.addWidget(self.features_text)
+
+        # Add right layout to main layout
+        self.layout.addLayout(right_layout)
+
+        # Set main layout
         self.setLayout(self.layout)
 
+        # Variables
         self.audio_file = None
         self.svm_model = None
         self.scaler = None
@@ -168,7 +204,61 @@ class InstrumentRecognizerApp(QWidget):
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.nn_model_loaded = False
 
+        # Load Models
         self.load_svm_model()
+
+    def upload_audio(self):
+        options = QFileDialog.Options()
+        file_path, _ = QFileDialog.getOpenFileName(self, "Select Audio File", "", "Audio Files (*.wav *.mp3 *.flac *.aac)", options=options)
+        if file_path:
+            self.audio_file = file_path
+            self.label.setText(f"Selected File: {os.path.basename(file_path)}")
+            self.predict_button.setEnabled(True)
+            self.feature_button.setEnabled(True)
+            self.result_label.setText("")
+            self.figure.clear()
+            self.canvas.draw()
+        else:
+            QMessageBox.warning(self, "No File", "Please select a valid audio file.")
+
+    def extract_and_display_features(self):
+        """
+        Extract features and display them in the features_text widget.
+        Only available when SVM is selected.
+        """
+        if self.audio_file is None:
+            QMessageBox.warning(self, "Error", "Please upload an audio file first.")
+            return
+
+        selected_model = self.model_selector.currentText()
+        if selected_model != "SVM":
+            QMessageBox.warning(self, "Error", "Feature extraction is only available for the SVM model.")
+            return
+
+        # Extract features for SVM
+        features = svm_preprocess_audio(self.audio_file)
+        if features is None:
+            QMessageBox.critical(self, "Error", "Failed to extract features.")
+            return
+
+        # Display extracted features
+        self.features_text.setVisible(True)
+        feature_names = [
+            "RMS",
+            "Spectral Centroid",
+            "Spectral Bandwidth",
+            "Spectral Rolloff",
+            "Zero Crossing Rate",
+        ]
+        mfcc_names = [f"MFCC_{i + 1}" for i in range(20)]
+        all_feature_names = feature_names + mfcc_names
+        feature_values = features.flatten()
+
+        feature_dict = dict(zip(all_feature_names, feature_values))
+        feature_df = pd.DataFrame(
+            list(feature_dict.items()), columns=["Feature", "Value"]
+        )
+        self.features_text.setText(feature_df.to_string(index=False))
 
     def load_svm_model(self):
         try:
@@ -198,18 +288,6 @@ class InstrumentRecognizerApp(QWidget):
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to load Neural Network model: {str(e)}")
 
-    def upload_audio(self):
-        options = QFileDialog.Options()
-        file_path, _ = QFileDialog.getOpenFileName(self, "Select Audio File", "", "Audio Files (*.wav *.mp3 *.flac *.aac)", options=options)
-        if file_path:
-            self.audio_file = file_path
-            self.label.setText(f"Selected File: {os.path.basename(file_path)}")
-            self.predict_button.setEnabled(True)
-            self.result_label.setText("")
-            self.figure.clear()
-            self.canvas.draw()
-        else:
-            QMessageBox.warning(self, "No File", "Please select a valid audio file.")
 
     def predict_instrument(self):
         if not self.audio_file:
@@ -230,9 +308,10 @@ class InstrumentRecognizerApp(QWidget):
         features = svm_preprocess_audio(self.audio_file)
         if features is None:
             return
-        features_scaled = self.scaler.transform(features.reshape(1, -1))
+        features_scaled = self.scaler.transform(features)
 
         try:
+            # Predict probabilities
             probabilities = self.svm_model.predict_proba(features_scaled)[0]
             top_index = np.argmax(probabilities)
             top_instrument = self.label_encoder.inverse_transform([top_index])[0]
@@ -241,8 +320,27 @@ class InstrumentRecognizerApp(QWidget):
             self.result_label.setStyleSheet("font-weight: bold; color: green;")
             self.result_label.setText(result_text)
 
-            # Display waveform for SVM predictions
+            # Display waveform
             self.plot_waveform()
+
+            # Display features
+            feature_names = [
+                "RMS",
+                "Spectral Centroid",
+                "Spectral Bandwidth",
+                "Spectral Rolloff",
+                "Zero Crossing Rate",
+            ]
+            mfcc_names = [f"MFCC_{i+1}" for i in range(20)]
+            all_feature_names = feature_names + mfcc_names
+            feature_values = features.flatten()
+
+            feature_dict = dict(zip(all_feature_names, feature_values))
+            feature_df = pd.DataFrame(
+                list(feature_dict.items()), columns=["Feature", "Value"]
+            )
+            self.features_text.setText(feature_df.to_string(index=False))
+
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to process with SVM: {str(e)}")
 
